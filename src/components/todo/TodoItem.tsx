@@ -1,4 +1,5 @@
 "use client";
+import { Todo } from "@prisma/client";
 import React from "react";
 import {
   IoPencilSharp,
@@ -6,21 +7,27 @@ import {
   IoTrashOutline,
 } from "react-icons/io5";
 
-interface props {
-  todo: String;
+interface Props {
+  todo: Todo;
 }
 
-export const TodoItem = ({ todo }: props) => {
-    return (
-      <div className="mt-3 bg-red-50 rounded-lg shadow-sm p-5 border-dashed border border-red-500 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
+export const TodoItem = ({ todo }: Props) => {
+  return (
+    <div className="mt-3 bg-green-50 rounded-lg shadow-sm p-5 border-dashed border flex flex-col gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="flex p-2 rounded-md cursor-pointer hover:bg-opacity-60 bg-red-100">
+          <div className="flex p-2 rounded-md cursor-pointer hover:bg-opacity-60 bg-green-100">
             <IoSquareOutline size={20} />
           </div>
-          <span className="text-center sm:text-left">{todo}</span>
+          <div className="flex flex-col gap-1">
+            <span className="font-medium">{todo.title}</span>
+            <p className="text-sm text-gray-600 max-w-xl line-clamp-2 hover:line-clamp-none">
+              {todo.description}
+            </p>
+          </div>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <button
             type="button"
             className="flex items-center justify-center rounded bg-blue-400 p-2 text-white hover:bg-blue-700 transition-all"
@@ -37,5 +44,6 @@ export const TodoItem = ({ todo }: props) => {
           </button>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};

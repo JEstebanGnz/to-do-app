@@ -1,16 +1,16 @@
 import React from 'react'
 import { TodoItem } from './TodoItem'
+import { Todo } from '@prisma/client'
 
-export const TodoGrid = () => {
+interface Props{
+  todos: Todo[]
+}
 
-   const todos = ['Tiempo de calidad con mi vida ','Ir a comer', 'Jugar', 'Entrenar']
+export const TodoGrid = ({todos}: Props) => {
 
   return (
     <div className='mt-6'>
-    
-        {todos.map(todo => <TodoItem todo={todo} key={todo} />)}
-    
-    
+        {todos.map(todo => <TodoItem todo={todo} key={todo.id} />)}
     </div>
   )
 }
