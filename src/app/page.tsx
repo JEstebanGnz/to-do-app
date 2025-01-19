@@ -1,23 +1,26 @@
-import { NewTodo, TodoGrid, TodoItem } from "@/components";
+import { TodoGrid, TodoItem } from "@/components";
 import Image from "next/image";
 import prisma from "./lib/prisma";
-import { getTodos } from '../helpers/todos';
-import * as api from '../helpers/todos'
+import * as todosApi from '../helpers/todos'
+import Link from "next/link";
 
 export default async function Home() {
 
-  //TODO Get the todos from Postgres DB / Supabase
-
-  const todos = await api.getTodos();
+  const todos = await todosApi.getTodos();
 
   return (
-    <div className="my-0 mx-auto pt-12 max-w-3xl">
+    <div>
 
-      <h1 className="text-center text-2xl font-bold">To-do App</h1>
+      <h1 className="text-center text-2xl font-bold mb-10">To-do App</h1>
 
-      <NewTodo />
+      <Link
+        href='/todo/create'
+        className="btn-primary"
+      >
+        Crear
+      </Link>
 
-      <TodoGrid todos={todos}/>
+      <TodoGrid todos={todos} />
 
     </div>
   );
