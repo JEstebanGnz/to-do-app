@@ -1,8 +1,6 @@
-
-import React from 'react'
 import * as todosApi from '@/helpers/todos';
-import { getTodo } from '../../../helpers/todos';
 import { TodoForm } from '@/components';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{
@@ -14,9 +12,11 @@ export default async function EditTodo({ params }: Props) {
 
   const { id } = await params
 
-  console.log(id);
-
   const todo = await todosApi.getTodo(id);
+
+  if (!todo) {
+    notFound();
+  }
 
   return (
     <div>

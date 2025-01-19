@@ -33,7 +33,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // If validation passes, create the todo
     const todo = await prisma.todo.create({
       data: validation.data
     });

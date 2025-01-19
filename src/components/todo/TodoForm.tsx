@@ -4,44 +4,44 @@ import { Todo } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 
-interface props {
-  todo?: Todo
+interface Props {
+  todo?: Todo;
 }
 
-export const TodoForm = ({ todo }: props) => {
-
+export const TodoForm = ({ todo }: Props) => {
   const router = useRouter();
 
   const [title, setTitle] = useState(todo?.title || "");
   const [description, setDescription] = useState(todo?.description || "");
+  const [error, setError] = useState<string | null>(null); // State to store the error message
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    if (error) setError(null);
     try {
       if (todo) {
-        await todosApi.updateTodo(todo.id, title, description)
+        await todosApi.updateTodo(todo.id, title, description);
+      } else {
+        await todosApi.createTodo(title, description);
       }
-      else {
-        await todosApi.createTodo(title, description)
-      }
-      router.push('/')
-    } catch (error: any) {
-
+      router.push('/'); 
+    } catch (err: any) {
+        setError(err.errors[0].message);
     }
-  }
+  };
 
   return (
     <form onSubmit={onSubmit} className="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-        {'Crear nueva tarea'}
+        {todo ? 'Editar tarea' : 'Crear nueva tarea'}
       </h2>
 
-      {/* {error && (
-        <div className="mb-4 p-3 rounded-md bg-red-100 text-red-700 border border-red-300">
+      {/* Error Message */}
+      {error && (
+        <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
           {error}
         </div>
-      )} */}
+      )}
 
       <div className="space-y-4">
         <div>
@@ -76,7 +76,7 @@ export const TodoForm = ({ todo }: props) => {
           type="submit"
           className="btn-primary"
         >
-          Crear
+          {todo ? 'Actualizar' : 'Crear'}
         </button>
       </div>
     </form>
