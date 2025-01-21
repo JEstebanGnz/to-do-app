@@ -30,3 +30,18 @@ Este proyecto es un administrador minimalista para tus tareas. La App permite vi
 5. Finalmente, correr la app
 
     npm start
+
+
+## Capturas de pantalla de funcionamiento:
+
+Interfaz de tareas
+</br>
+![To-do-App Screenshot](./public/assets/to-do-app-1.png)
+
+Creación/Edición de tareas
+</br>
+![To-do-App Screenshot](./public/assets/to-do-app-2.png)
+
+Marcar tareas como completas
+</br>
+![To-do-App Screenshot](./public/assets/to-do-app-3.png)
