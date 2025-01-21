@@ -2,6 +2,8 @@ import { TodoGrid } from "@/components";
 import Link from "next/link";
 import prisma from "./lib/prisma";
 
+export const dynamic = "force-dynamic"; // Ensure dynamic rendering
+
 export default async function Home() {
 
   const todos = await prisma.todo.findMany({ orderBy: [{ createdAt: 'desc' }] });

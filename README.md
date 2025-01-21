@@ -23,6 +23,10 @@ Este proyecto es un administrador minimalista para tus tareas. La App permite vi
 
 3. Duplicar el archivo "env.example" y renombrarlo a ".env" (El archivo contiene la variable de conexión a la base de datos postgresql en Supabase)
 
-4. Luego, para correr la app:
+4. Luego, montar el build de producción:
 
-    npm run dev
+    npm run build
+
+5. Finalmente, correr la app
+
+    npm start
