@@ -1,12 +1,10 @@
-import { TodoGrid, TodoItem } from "@/components";
-import Image from "next/image";
-import prisma from "./lib/prisma";
-import * as todosApi from '../helpers/todos'
+import { TodoGrid } from "@/components";
 import Link from "next/link";
+import prisma from "./lib/prisma";
 
 export default async function Home() {
 
-  const todos = await todosApi.getTodos();
+  const todos = await prisma.todo.findMany({ orderBy: [{ createdAt: 'desc' }] });
 
   return (
     <div>

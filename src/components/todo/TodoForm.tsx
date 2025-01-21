@@ -1,5 +1,6 @@
 'use client'
 import * as todosApi from '@/helpers/todos';
+import { ApiError } from '@/interface/api/InterfaceApi';
 import { Todo } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
@@ -25,8 +26,9 @@ export const TodoForm = ({ todo }: Props) => {
         await todosApi.createTodo(title, description);
       }
       router.push('/'); 
-    } catch (err: any) {
-        setError(err.errors[0].message);
+    } catch (err) {
+      const apiError = err as ApiError;
+        setError(apiError.errors[0].message);
     }
   };
 

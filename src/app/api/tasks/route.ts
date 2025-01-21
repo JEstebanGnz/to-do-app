@@ -1,14 +1,14 @@
 import prisma from '@/app/lib/prisma'
 import { createTodoSchema } from '@/app/schemas/todo/schema';
-import { NextResponse, NextRequest } from 'next/server'
+import { NextResponse} from 'next/server'
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const todos = await prisma.todo.findMany();
     return NextResponse.json(todos);
   } catch (error) {
     return NextResponse.json(
-      { message: 'Error interno del servidor, intenta más tarde.' },
+      {message: `Error interno del servidor: ${error}` },
       { status: 500 }
     );
   }
@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     return NextResponse.json(todo, { status: 201 });
 
   } catch (error) {
-    return NextResponse.json({ message: 'Internal server error' },
+    return NextResponse.json({ message: `Error interno del servidor: ${error}` },
       { status: 500 })
   }
 }

@@ -1,6 +1,6 @@
 import prisma from '@/app/lib/prisma'
-import { createTodoSchema, updateTodoSchema } from '@/app/schemas/todo/schema';
-import { NextResponse, NextRequest } from 'next/server'
+import {  updateTodoSchema } from '@/app/schemas/todo/schema';
+import { NextResponse, } from 'next/server'
 
 interface Segments {
   params: Promise<{
@@ -44,7 +44,7 @@ export async function PUT(request: Request, { params }: Segments) {
   }
 
   catch (error) {
-    return NextResponse.json({ message: 'Error interno del servidor' },
+    return NextResponse.json({ message: `Error interno del servidor: ${error}` },
       { status: 500 })
   }
 }
@@ -63,6 +63,6 @@ export async function DELETE(request: Request, { params }: Segments) {
     await prisma.todo.delete({ where: { id } });
     return NextResponse.json({ message: 'Todo eliminado correctamente' })
   } catch (error) {
-    return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 })
+    return NextResponse.json({message: `Error interno del servidor: ${error}` }, { status: 500 })
   }
 }

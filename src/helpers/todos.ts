@@ -1,6 +1,5 @@
 import prisma from "@/app/lib/prisma";
 import { Todo } from "@prisma/client";
-import { boolean } from "zod";
 
 export const getTodo = async (id: string): Promise<Todo | null> => {
     const todo = await prisma.todo.findFirst({ where: { id } });
@@ -14,6 +13,7 @@ export const getTodos = async (): Promise<Todo[] | []> => {
 
 export const createTodo = async (title: string, description: string): Promise<Todo> => {
     const response = await fetch(`/api/tasks/`, {
+        cache:'no-store',
         method: 'POST',
         body: JSON.stringify({ title, description }),
         headers: {
@@ -32,6 +32,7 @@ export const createTodo = async (title: string, description: string): Promise<To
 
 export const toggleTodo = async (id: string, completed: boolean): Promise<Todo> => {
     const todo = await fetch(`/api/tasks/${id}`, {
+        cache:'no-store',
         method: 'PUT',
         body: JSON.stringify({ completed }),
         headers: {
@@ -43,6 +44,7 @@ export const toggleTodo = async (id: string, completed: boolean): Promise<Todo> 
 
 export const updateTodo = async (id: string, title?: string, description?: string): Promise<Todo> => {
     const response = await fetch(`/api/tasks/${id}`, {
+        cache:'no-store',
         method: 'PUT',
         body: JSON.stringify({ title, description }),
         headers: {
@@ -64,6 +66,7 @@ export const updateTodo = async (id: string, title?: string, description?: strin
 export const deleteTodo = async (id: string): Promise<boolean> => {
 
     await fetch(`/api/tasks/${id}`, {
+        cache:'no-store',
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
